@@ -1,5 +1,7 @@
-package practice;
+package DAO;
 
+import Beans.propertyBean;
+import Exception.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -61,7 +63,8 @@ public class PropertyDAOImplSQL implements propertyDAO {
         return false;
     }
 
-	public propertyBean findByID(String id) throws PropertyNotFound {
+    @Override
+    public propertyBean findByID(String id) throws PropertyNotFound {
 		propertyBean property = new propertyBean();
         try{
             Statement stmt = connection.createStatement();
@@ -99,7 +102,8 @@ public class PropertyDAOImplSQL implements propertyDAO {
 		return false;
 	}
 
-	public ArrayList getAll() throws PropertyNotFound {
+    @Override
+    public ArrayList getAll() throws PropertyNotFound {
 		ArrayList<propertyBean> propertys = new ArrayList<>();
         try{
             Statement stmt = connection.createStatement();

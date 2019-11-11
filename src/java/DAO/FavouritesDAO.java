@@ -8,7 +8,7 @@ package DAO;
 import Beans.FavouritesBean;
 import Exception.*;
 import java.util.ArrayList;
-import practice.PropertyNotFound;
+import Exception.PropertyNotFound;
 
 /**
  *
@@ -16,7 +16,6 @@ import practice.PropertyNotFound;
  */
 public interface FavouritesDAO {
     public boolean insert(FavouritesBean favourites) throws UserNotFound;
-    public boolean update(FavouritesBean favourites) throws UserNotFound;
     public boolean delete(FavouritesBean favourites) throws UserNotFound;
     public FavouritesBean getFavouritesByUserID(String userID) throws UserNotFound;
     public FavouritesBean getfavouritesByPropertyID(String propertyID) throws PropertyNotFound;

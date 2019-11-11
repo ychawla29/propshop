@@ -1,4 +1,4 @@
-package practice;
+package Beans;
 
 import java.util.Date;
 

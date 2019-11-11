@@ -1,10 +1,13 @@
-package practice;
+package DAO;
 
+import Beans.propertyBean;
+import Exception.PropertyAlreadyExists;
+import Exception.PropertyNotFound;
 import java.util.ArrayList;
 
 public interface propertyDAO {
 
-	public boolean insert(propertyBean user) throws PropertyAlreadyExists;
+    public boolean insert(propertyBean user) throws PropertyAlreadyExists;
     public boolean update(propertyBean user) throws PropertyNotFound;
     public propertyBean findByID(String id) throws PropertyNotFound;
     public boolean delete(propertyBean user) throws PropertyNotFound;

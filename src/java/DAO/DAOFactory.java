@@ -25,4 +25,13 @@ public class DAOFactory {
         }
         return userDao;
     }
+    public static propertyDAO getPropertyDAO(int persistenceType) throws ClassNotFoundException, SQLException{
+        propertyDAO pAO = null;
+        switch(persistenceType){
+            case DAOFactory.SQL : pAO = new PropertyDAOImplSQL();
+            break;
+            case DAOFactory.JPA : break;
+        }
+        return pAO;
+    } 
 }

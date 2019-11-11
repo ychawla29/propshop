@@ -1,4 +1,4 @@
-package practice;
+package Exception;
 
 public class PropertyNotFound extends Exception{
 

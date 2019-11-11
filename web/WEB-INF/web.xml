@@ -4,9 +4,17 @@
         <servlet-name>SerNewUser</servlet-name>
         <servlet-class>Servlet.SerUserAction</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SerPropertyAction</servlet-name>
+        <servlet-class>Servlet.SerPropertyAction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SerNewUser</servlet-name>
         <url-pattern>/SerNewUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerPropertyAction</servlet-name>
+        <url-pattern>/SerPropertyAction</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
