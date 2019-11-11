@@ -50,19 +50,49 @@ public class SerNewUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String userJson = request.getParameter("addUser");
-            JSONObject userJO;
-            JSONParser jp = new JSONParser();
-            userJO = (JSONObject) jp.parse(userJson);
-            String userID = (String) userJO.get("userID");
-            String userName = (String) userJO.get("userName");
-            String userPass = (String) userJO.get("userPass");
-            String userEmail = (String) userJO.get("userEmail");
-            String userCnt = (String) userJO.get("userCnt");
-            UserBean user = new UserBean(userID, userName, userPass, userEmail, userCnt);
-            UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
-            if(userDao.insert(user))
-                out.print("Success");
+            String action = request.getParameter("action");
+            if(action.equals("add")){
+                String userID = request.getParameter("userID");
+                String userName = request.getParameter("userName");
+                String userPass = request.getParameter("userPass");
+                String userEmail = request.getParameter("userEmail");
+                String userCnt = request.getParameter("userCnt");
+                UserBean user = new UserBean(userID, userName, userPass, userEmail, userCnt);
+                UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
+                if(userDao.insert(user))
+                    out.print("1");
+                else 
+                    out.print("0");
+            }
+            else if(action.equals("delete")){
+                String userID = request.getParameter("userID");
+                UserBean user = new UserBean();
+                user.setId(userID);
+                UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
+                if(userDao.delete(user))
+                    out.print("1");
+                else
+                    out.print("0");
+            }
+            else if(action.equals("update")){
+                String userID = request.getParameter("userID");
+                String userName = request.getParameter("userName");
+                String userPass = request.getParameter("userPass");
+                String userEmail = request.getParameter("userEmail");
+                String userCnt = request.getParameter("userCnt");
+                UserBean user = new UserBean(userID, userName, userPass, userEmail, userCnt);
+                UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
+                if(userDao.update(user))
+                    out.print("1");
+                else 
+                    out.print("0");
+            }
+            else if(action.equals("get")){
+                String userID = request.getParameter("userID");
+                UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
+                UserBean user = userDao.findByID(userID);
+                
+            }
         }
         catch(Exception ex){
             ex.printStackTrace();
