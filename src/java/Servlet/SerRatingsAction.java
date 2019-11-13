@@ -5,12 +5,18 @@
  */
 package Servlet;
 
+import Beans.RatingsBean;
+import DAO.DAOFactory;
+import DAO.RatingsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -31,16 +37,61 @@ public class SerRatingsAction extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SerRatingsAction</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SerRatingsAction at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String action = request.getParameter("action");
+            if(action.equals("insert")){
+                int propertyID = Integer.parseInt(request.getParameter("propertyID"));
+                String userID = request.getParameter("userID");
+                int ratings = Integer.parseInt(request.getParameter("ratings"));
+                RatingsDAO ratingsDAO = DAOFactory.getRatingsDAO(DAOFactory.SQL);    
+                RatingsBean ratingsBean = new RatingsBean(userID, propertyID, ratings);
+                if(ratingsDAO.insert(ratingsBean))
+                    out.print("1");
+                else
+                    out.print("0");
+            }
+            else if(action.equals("delete")){
+                int propertyID = Integer.parseInt(request.getParameter("propertyID"));
+                RatingsBean ratingsBean = new RatingsBean();
+                RatingsDAO ratingsDAO = DAOFactory.getRatingsDAO(DAOFactory.SQL);
+                ratingsBean.setPropertyId(propertyID);
+                if(ratingsDAO.delete(ratingsBean))
+                    out.print("1");
+                else 
+                    out.print("0");
+            }
+            else if(action.equals("update")){
+                int propertyID = Integer.parseInt(request.getParameter("propertyID"));
+                String userID = request.getParameter("userID");
+                int ratings = Integer.parseInt(request.getParameter("ratings"));
+                RatingsDAO ratingsDAO = DAOFactory.getRatingsDAO(DAOFactory.SQL);    
+                RatingsBean ratingsBean = new RatingsBean(userID, propertyID, ratings);
+                if(ratingsDAO.update(ratingsBean))
+                    out.print("1");
+                else 
+                    out.print("0");
+            }
+            else if(action.equals("getByID")){
+                int propertyID = Integer.parseInt(request.getParameter("propertyID"));
+                RatingsBean ratingsBean = null;
+                RatingsDAO ratingsDAO = DAOFactory.getRatingsDAO(DAOFactory.SQL);
+                ratingsBean = ratingsDAO.findByID(propertyID);
+                JSONObject jo = new JSONObject();
+                jo.put("userID", ratingsBean.getUserId());
+                jo.put("propertyID", ratingsBean.getPropertyId());
+                jo.put("ratings", ratingsBean.getRatings());
+                out.print(jo.toString());
+            }
+            else if(action.equals("getAll")){
+                JSONArray ja = new JSONArray();
+                RatingsDAO ratingsDAO = DAOFactory.getRatingsDAO(DAOFactory.SQL);
+                ArrayList<RatingsBean> ratingsBeans = ratingsDAO.getAll();
+                for(RatingsBean ratingBean : ratingsBeans){
+                    
+                }
+            }
+        }
+        catch(Exception e){
+            
         }
     }
 

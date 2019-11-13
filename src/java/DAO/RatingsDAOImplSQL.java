@@ -59,14 +59,14 @@ public class RatingsDAOImplSQL implements RatingsDAO{
         return false;
 	}
 
-	public RatingsBean findByID(String id) throws RatingsNotFound {
+	public RatingsBean findByID(int id) throws RatingsNotFound {
 		RatingsBean rating = new RatingsBean();
         try{
             Statement stmt = con.createStatement();
-            String sql = "select * from ratings where property_id='"+id+"'";
+            String sql = "select * from ratings where property_id="+id;
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
-            	rating.setPropertyId(Integer.parseInt(id));
+            	rating.setPropertyId(id);
             	rating.setUserId(rs.getString("user_id"));
             	rating.setRatings(rs.getInt("ratings"));
             }

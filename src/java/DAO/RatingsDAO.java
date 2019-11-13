@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public interface RatingsDAO {
     public boolean insert(RatingsBean ratings) throws RatingsAlreadyExists;
     public boolean update(RatingsBean ratings) throws RatingsNotFound;
-    public RatingsBean findByID(String id) throws RatingsNotFound;
+    public RatingsBean findByID(int id) throws RatingsNotFound;
     public boolean delete(RatingsBean ratings) throws RatingsNotFound;
     public ArrayList<RatingsBean> getAll() throws RatingsNotFound;
     
