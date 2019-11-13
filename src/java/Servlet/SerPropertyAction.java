@@ -32,6 +32,17 @@ public class SerPropertyAction extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
            String action = request.getParameter("action");
+           if(action.equals("insert")){
+               String propertyID = request.getParameter("propertyID");
+               String popertyTitle = request.getParameter("propertyTitle");
+               String propertyDescription = request.getParameter("propertyDescription");
+               float propertyPrice = Float.parseFloat(request.getParameter("propertyPrice"));
+               String propertyType = request.getParameter("propertyType");
+               float propertyArea = Float.parseFloat(request.getParameter("propertyArea"));
+               String propertyDate = request.getParameter("propertyDate");
+               String address = request.getParameter("propertyAddress");
+               String propertyPostedBy = request.getParameter("propertyPostedBy");
+           }
         }
     }
 
