@@ -85,13 +85,18 @@ public class SerRatingsAction extends HttpServlet {
                 JSONArray ja = new JSONArray();
                 RatingsDAO ratingsDAO = DAOFactory.getRatingsDAO(DAOFactory.SQL);
                 ArrayList<RatingsBean> ratingsBeans = ratingsDAO.getAll();
-                for(RatingsBean ratingBean : ratingsBeans){
-                    
+                for(RatingsBean ratingsBean : ratingsBeans){
+                    JSONObject jo = new JSONObject();
+                    jo.put("userID", ratingsBean.getUserId());
+                    jo.put("propertyID", ratingsBean.getPropertyId());
+                    jo.put("ratings", ratingsBean.getRatings());
+                    ja.add(jo);
                 }
+                out.print(ja.toString());
             }
         }
         catch(Exception e){
-            
+            e.printStackTrace();
         }
     }
 
