@@ -102,7 +102,5 @@ public class PropertySoldDAOImplSQL implements PropertySoldDAO {
             throw new PropertySoldNotFound("Property For Sold NotFound ");
         }
         return propertySolds;
-	}
-
-	
+        }   	
 }

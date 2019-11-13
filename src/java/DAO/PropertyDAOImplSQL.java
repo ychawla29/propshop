@@ -128,5 +128,83 @@ public class PropertyDAOImplSQL implements propertyDAO {
         return propertys;
 	}
     
+    @Override
+    public ArrayList<propertyBean> sortPLTH() throws PropertyNotFound{
+        ArrayList<propertyBean> propBeans = new ArrayList<>();
+        try{
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("select * from property order by property_price");
+            while(rs.next()){
+                propertyBean property = new propertyBean();
+            	property.setId(rs.getString("property_id"));
+            	property.setTitle(rs.getString("property_title"));
+            	property.setDescription(rs.getString("property_description"));
+            	property.setPrice(rs.getFloat("property_price"));
+            	property.setType(rs.getString("property_type"));
+            	property.setArea(rs.getFloat("property_area"));
+            	property.setDate(rs.getDate("property_date"));
+            	property.setAddress(rs.getString("property_address"));
+            	property.setPostedBy(rs.getString("property_postedBy")); 
+                propBeans.add(property);
+            }
+        }
+        catch(Exception e){
+            throw new PropertyNotFound("Some error occured while extracting the property");
+        }
+        return propBeans;
+    }
+    
+    public ArrayList<propertyBean> sortPHTL() throws PropertyNotFound {
+        ArrayList<propertyBean> propBeans = new ArrayList<>();
+        try{
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("select * from property order by property_price desc");
+            while(rs.next()){
+                propertyBean property = new propertyBean();
+            	property.setId(rs.getString("property_id"));
+            	property.setTitle(rs.getString("property_title"));
+            	property.setDescription(rs.getString("property_description"));
+            	property.setPrice(rs.getFloat("property_price"));
+            	property.setType(rs.getString("property_type"));
+            	property.setArea(rs.getFloat("property_area"));
+            	property.setDate(rs.getDate("property_date"));
+            	property.setAddress(rs.getString("property_address"));
+            	property.setPostedBy(rs.getString("property_postedBy")); 
+                propBeans.add(property);
+            }
+        }
+        catch(Exception e){
+            throw new PropertyNotFound("Some error occured while extracting the property");
+        }
+        return propBeans;
+    }
+    
+    public ArrayList<propertyBean> sortRHTL() throws PropertyNotFound {
+         ArrayList<propertyBean> propBeans = new ArrayList<>();
+        try{
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT property.property_id, property.property_title, property.property_description, property.property_price,"
+                    + " property.property_type, property.property_area, property.property_date, property.property_address, property.property_postedBy,"
+                    + " count(ratings.ratings) as ratings from property JOIN ratings ON property.property_id = ratings.property_id group by"
+                    + " ratings.ratings order by ratings.ratings desc");
+            while(rs.next()){
+                propertyBean property = new propertyBean();
+            	property.setId(rs.getString("property_id"));
+            	property.setTitle(rs.getString("property_title"));
+            	property.setDescription(rs.getString("property_description"));
+            	property.setPrice(rs.getFloat("property_price"));
+            	property.setType(rs.getString("property_type"));
+            	property.setArea(rs.getFloat("property_area"));
+            	property.setDate(rs.getDate("property_date"));
+            	property.setAddress(rs.getString("property_address"));
+            	property.setPostedBy(rs.getString("property_postedBy")); 
+                propBeans.add(property);
+            }
+        }
+        catch(Exception e){
+            throw new PropertyNotFound("Some error occured while extracting the property");
+        }
+        return propBeans;
+    }
 }
 

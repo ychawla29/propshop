@@ -120,6 +120,63 @@ public class SerPropertyAction extends HttpServlet {
                }
                out.print(ja.toString());
            }
+           else if(action.equals("sortPHTL")){
+               JSONArray ja = new JSONArray();
+               propertyDAO pDao = DAOFactory.getPropertyDAO(DAOFactory.SQL);
+               ArrayList<propertyBean> pBeans = pDao.sortPHTL();
+               for(propertyBean pBean : pBeans){
+                    JSONObject pjo = new JSONObject();
+                    pjo.put("propertyID", pBean.getId());
+                    pjo.put("propertyTitle", pBean.getTitle());
+                    pjo.put("propertyDescription", pBean.getDescription());
+                    pjo.put("propertyPrice", pBean.getPrice());
+                    pjo.put("propertyType", pBean.getType());
+                    pjo.put("propertyArea", pBean.getArea());
+                    pjo.put("propertyDate", pBean.getDate());
+                    pjo.put("propertyAddress", pBean.getAddress());
+                    pjo.put("propjectPostedBy", pBean.getPostedBy());
+                    ja.add(pjo);
+               }
+               out.print(ja.toString());
+           }
+           else if(action.equals("sortPLTH")){
+               JSONArray ja = new JSONArray();
+               propertyDAO pDao = DAOFactory.getPropertyDAO(DAOFactory.SQL);
+               ArrayList<propertyBean> pBeans = pDao.sortPLTH();
+               for(propertyBean pBean : pBeans){
+                    JSONObject pjo = new JSONObject();
+                    pjo.put("propertyID", pBean.getId());
+                    pjo.put("propertyTitle", pBean.getTitle());
+                    pjo.put("propertyDescription", pBean.getDescription());
+                    pjo.put("propertyPrice", pBean.getPrice());
+                    pjo.put("propertyType", pBean.getType());
+                    pjo.put("propertyArea", pBean.getArea());
+                    pjo.put("propertyDate", pBean.getDate());
+                    pjo.put("propertyAddress", pBean.getAddress());
+                    pjo.put("propjectPostedBy", pBean.getPostedBy());
+                    ja.add(pjo);
+               }
+               out.print(ja.toString());
+           }
+           else if(action.equals("sortRHTL")){
+               JSONArray ja = new JSONArray();
+               propertyDAO pDao = DAOFactory.getPropertyDAO(DAOFactory.SQL);
+               ArrayList<propertyBean> pBeans = pDao.sortRHTL();
+               for(propertyBean pBean : pBeans){
+                    JSONObject pjo = new JSONObject();
+                    pjo.put("propertyID", pBean.getId());
+                    pjo.put("propertyTitle", pBean.getTitle());
+                    pjo.put("propertyDescription", pBean.getDescription());
+                    pjo.put("propertyPrice", pBean.getPrice());
+                    pjo.put("propertyType", pBean.getType());
+                    pjo.put("propertyArea", pBean.getArea());
+                    pjo.put("propertyDate", pBean.getDate());
+                    pjo.put("propertyAddress", pBean.getAddress());
+                    pjo.put("propjectPostedBy", pBean.getPostedBy());
+                    ja.add(pjo);
+               }
+               out.print(ja.toString());
+           }
         }
         catch(Exception e){
             e.printStackTrace();

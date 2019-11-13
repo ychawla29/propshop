@@ -12,5 +12,7 @@ public interface propertyDAO {
     public propertyBean findByID(String id) throws PropertyNotFound;
     public boolean delete(propertyBean user) throws PropertyNotFound;
     public ArrayList<propertyBean> getAll() throws PropertyNotFound;
-    
+    public ArrayList<propertyBean> sortPLTH() throws PropertyNotFound;
+    public ArrayList<propertyBean> sortPHTL() throws PropertyNotFound;
+    public ArrayList<propertyBean> sortRHTL() throws PropertyNotFound;
 }
