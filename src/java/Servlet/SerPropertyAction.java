@@ -11,6 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import DAO.*;
+import Beans.propertyBean;
+import java.util.Date;
 
 /**
  *
@@ -40,9 +43,19 @@ public class SerPropertyAction extends HttpServlet {
                String propertyType = request.getParameter("propertyType");
                float propertyArea = Float.parseFloat(request.getParameter("propertyArea"));
                String propertyDate = request.getParameter("propertyDate");
+               Date date = new Date(propertyDate);
                String address = request.getParameter("propertyAddress");
                String propertyPostedBy = request.getParameter("propertyPostedBy");
+               propertyBean pBean = new propertyBean(propertyID, popertyTitle, propertyDescription, propertyType, address, propertyPostedBy, date, propertyPrice, propertyArea);
+               propertyDAO pDao = DAOFactory.getPropertyDAO(DAOFactory.SQL);
+               if(pDao.insert(pBean))
+                   out.print("1");    
+               else
+                   out.print("0");
            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 

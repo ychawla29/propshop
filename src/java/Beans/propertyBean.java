@@ -58,6 +58,23 @@ public class propertyBean {
 	public void setArea(float area) {
 		this.area = area;
 	}
+
+    public propertyBean() {
+    }
+        
+
+    public propertyBean(String id, String title, String description, String type, String address, String postedBy, Date date, float price, float area) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.address = address;
+        this.postedBy = postedBy;
+        this.date = date;
+        this.price = price;
+        this.area = area;
+    }
+        
 	private String title,description,type,address,postedBy;
 	private Date date;
 	private float price,area;
