@@ -5,23 +5,25 @@
  */
 package Servlet;
 
-import Beans.UserBean;
-import DAO.*;
+import Beans.FavouritesBean;
+import DAO.DAOFactory;
+import DAO.FavouritesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.*;
-
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Yogesh Chawla
  */
-public class SerUserAction extends HttpServlet {
+public class SerFavouritesAction extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,62 +34,66 @@ public class SerUserAction extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String action = request.getParameter("action");
-            if(action.equals("add")){
+            String action =  request.getParameter("action");
+            if(action.equals("insert")){
                 String userID = request.getParameter("userID");
-                String userName = request.getParameter("userName");
-                String userPass = request.getParameter("userPass");
-                String userEmail = request.getParameter("userEmail");
-                String userCnt = request.getParameter("userCnt");
-                UserBean user = new UserBean(userID, userName, userPass, userEmail, userCnt);
-                UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
-                if(userDao.insert(user))
-                    out.print("1");
-                else 
-                    out.print("0");
-            }
-            else if(action.equals("delete")){
-                String userID = request.getParameter("userID");
-                UserBean user = new UserBean();
-                user.setId(userID);
-                UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
-                if(userDao.delete(user))
+                String propertyID = request.getParameter("popertyID");
+                FavouritesBean favouritesBean = new FavouritesBean(userID, propertyID);
+                FavouritesDAO favouritesDAO = DAOFactory.getFavouritesDAO(DAOFactory.SQL);
+                if(favouritesDAO.insert(favouritesBean))
                     out.print("1");
                 else
                     out.print("0");
             }
-            else if(action.equals("update")){
+            else if(action.equals("delete")){
                 String userID = request.getParameter("userID");
-                String userName = request.getParameter("userName");
-                String userPass = request.getParameter("userPass");
-                String userEmail = request.getParameter("userEmail");
-                String userCnt = request.getParameter("userCnt");
-                UserBean user = new UserBean(userID, userName, userPass, userEmail, userCnt);
-                UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
-                if(userDao.update(user))
+                String propertyID = request.getParameter("popertyID");
+                FavouritesBean favouritesBean = new FavouritesBean(userID, propertyID);
+                FavouritesDAO favouritesDAO = DAOFactory.getFavouritesDAO(DAOFactory.SQL);
+                if(favouritesDAO.delete(favouritesBean))
                     out.print("1");
-                else 
+                else
                     out.print("0");
             }
-            else if(action.equals("get")){
-                String userID = request.getParameter("userID");
-                UserDAO userDao = DAOFactory.getUserDAO(DAOFactory.SQL);
-                UserBean user = userDao.findByID(userID);
+            else if(action.equals("getByPID")){
+                String propertyID = request.getParameter("popertyID");
+                FavouritesBean favouritesBean;
+                FavouritesDAO favouritesDAO = DAOFactory.getFavouritesDAO(DAOFactory.SQL);
+                favouritesBean = favouritesDAO.getfavouritesByPropertyID(propertyID);
                 JSONObject jo = new JSONObject();
-                jo.put("userID", user.getId());
-                jo.put("userName",user.getName());
-                jo.put("userPass",user.getPassword());
-                jo.put("userEmail",user.getEmail());
-                jo.put("userCnt", user.getCnt_no());
+                jo.put("userID", favouritesBean.getUserID());
+                jo.put("prpertyID", favouritesBean.getPropertyID());
                 out.print(jo.toString());
             }
+            else if(action.equals("getByUID")){
+                String userID = request.getParameter("userID");
+                FavouritesBean favouritesBean;
+                FavouritesDAO favouritesDAO = DAOFactory.getFavouritesDAO(DAOFactory.SQL);
+                favouritesBean = favouritesDAO.getFavouritesByUserID(userID);
+                JSONObject jo = new JSONObject();
+                jo.put("userID", favouritesBean.getUserID());
+                jo.put("prpertyID", favouritesBean.getPropertyID());
+                out.print(jo.toString());
+            }
+            else if(action.equals("getAll")){
+                JSONArray ja = new JSONArray();
+                FavouritesDAO fDao = DAOFactory.getFavouritesDAO(DAOFactory.SQL);
+                ArrayList<FavouritesBean> fBeans =  fDao.getAll();
+                for(FavouritesBean favouritesBean : fBeans){
+                    JSONObject jo = new JSONObject();
+                    jo.put("userID", favouritesBean.getUserID());
+                    jo.put("prpertyID", favouritesBean.getPropertyID());
+                    ja.add(jo);
+                }
+                out.print(ja.toString());
+            }
         }
-        catch(Exception ex){
-            ex.printStackTrace();
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 

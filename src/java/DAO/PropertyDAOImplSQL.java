@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class PropertyDAOImplSQL implements propertyDAO {
 
     private final Connection connection;
-    public PropertyDAOImplSQL() throws ClassNotFoundException, SQLException, SQLException {
+    public PropertyDAOImplSQL() throws ClassNotFoundException, SQLException {
         connection = DBConnection.DBConnection.getInstance().getConnection();
     }
 

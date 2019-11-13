@@ -34,4 +34,13 @@ public class DAOFactory {
         }
         return pAO;
     } 
+    public static FavouritesDAO getFavouritesDAO(int persistenceType) throws ClassNotFoundException, SQLException{
+        FavouritesDAO favouritesDAO = null;
+        switch(persistenceType){
+            case DAOFactory.SQL : favouritesDAO = new FavouritesDAOImplSQL();
+            break;
+            case DAOFactory.JPA : break;
+        }
+        return favouritesDAO;
+    }
 }
