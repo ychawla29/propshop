@@ -52,4 +52,22 @@ public class DAOFactory {
         }
         return ratingsDao;
     }
+    public static PropertySoldDAO getPropertySoldDAO(int persistenceType) throws ClassNotFoundException, SQLException{
+        PropertySoldDAO propertySoldDAO = null;
+        switch(persistenceType){
+            case DAOFactory.SQL : propertySoldDAO = new PropertySoldDAOImplSQL();
+            break;
+            case DAOFactory.JPA : break;
+        }
+        return propertySoldDAO;
+    }
+    public static ImageDAO getImageDAO(int persistenceType) throws ClassNotFoundException, SQLException{
+        ImageDAO imageDAO = null;
+        switch(persistenceType){
+            case DAOFactory.SQL : imageDAO = new ImageDAOImplSQL();
+            break;
+            case DAOFactory.JPA : break;
+        }
+        return imageDAO;
+    }
 }

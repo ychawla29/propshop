@@ -16,6 +16,14 @@
         <servlet-name>SerRatingsAction</servlet-name>
         <servlet-class>Servlet.SerRatingsAction</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SerPropertySoldAction</servlet-name>
+        <servlet-class>Servlet.SerPropertySoldAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SerImageAction</servlet-name>
+        <servlet-class>Servlet.SerImageAction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SerNewUser</servlet-name>
         <url-pattern>/SerNewUser</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>SerRatingsAction</servlet-name>
         <url-pattern>/SerRatingsAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerPropertySoldAction</servlet-name>
+        <url-pattern>/SerPropertySoldAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerImageAction</servlet-name>
+        <url-pattern>/SerImageAction</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
