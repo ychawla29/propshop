@@ -1,2 +1,3 @@
-# propshop
-Backend Project of 3rd Sem Msc Project for PropShop
+# Accommodation System Back End
+# Subject :- DSS & EC
+# Team :- 2
